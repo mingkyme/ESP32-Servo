@@ -20,7 +20,7 @@ char mqtt_pw[] = "";
 
 WiFiClient espClient;
 PubSubClient client(espClient);
-
+boolean isOn = false;
 void callback(char *topic, byte *payload, unsigned int length)
 {
     Serial.print("Message arrived [");
@@ -33,22 +33,32 @@ void callback(char *topic, byte *payload, unsigned int length)
     }
     if (msg.equals("ON"))
     {
-        myservo.attach(servoPin);
-        myservo.write(140);
-        delay(3000);
-        myservo.detach();
+       turnOnOff(true);
     }
     else if (msg.equals("OFF"))
     {
-        myservo.attach(servoPin);
-        myservo.write(100);
-        delay(3000);
-        myservo.detach();
+        turnOnOff(false);
+    }
+    else if(msg.equals("TOGGLE"))
+    {
+        turnOnOff(!isOn);
     }
     Serial.print(msg);
     Serial.println();
 }
-
+void turnOnOff(bool toOn){
+    myservo.attach(servoPin);
+    if(toOn){
+        myservo.write(140);
+        delay(3000);
+        myservo.detach();
+    }else{
+        myservo.write(100);
+        delay(3000);
+        myservo.detach();
+    }
+    isOn = toOn;
+}
 void setup()
 {
     Serial.begin(115200); //ESP8266
