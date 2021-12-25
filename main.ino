@@ -33,7 +33,7 @@ void callback(char *topic, byte *payload, unsigned int length)
     }
     if (msg.equals("ON"))
     {
-       turnOnOff(true);
+        turnOnOff(true);
     }
     else if (msg.equals("OFF"))
     {
@@ -49,12 +49,12 @@ void callback(char *topic, byte *payload, unsigned int length)
 void turnOnOff(bool toOn){
     myservo.attach(servoPin);
     if(toOn){
-        myservo.write(140);
-        delay(3000);
+        myservo.write(200);
+        delay(300);
         myservo.detach();
     }else{
-        myservo.write(100);
-        delay(3000);
+        myservo.write(80);
+        delay(300);
         myservo.detach();
     }
     isOn = toOn;
