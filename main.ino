@@ -13,8 +13,8 @@ char ssid[] = "";
 char password[] = "";
 const char *mqtt_server = "";
 
-char topic[] = "";
-char nickname[] = "";
+char topic[] = "iot/switch/kitchen";
+char nickname[] = "ESP32";
 char mqtt_id[] = "";
 char mqtt_pw[] = "";
 
@@ -50,11 +50,11 @@ void turnOnOff(bool toOn){
     myservo.attach(servoPin);
     if(toOn){
         myservo.write(200);
-        delay(300);
+        delay(100);
         myservo.detach();
     }else{
         myservo.write(80);
-        delay(300);
+        delay(100);
         myservo.detach();
     }
     isOn = toOn;
